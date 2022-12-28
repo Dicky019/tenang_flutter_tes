@@ -1,37 +1,25 @@
 import 'package:flutter/material.dart';
-import '../../../../gen/assets.gen.dart';
-import '../../../constants/constants.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common_widgets/common_widgets.dart';
+import '../../auth/data/auth_repository.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final controller = ref.read(authRepositoryProvider);
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: SizeApp.customWidth(295),
-              child: TextFieldWidget(
-                textEditingController: TextEditingController(),
-                hintText: 'Email', icon: Assets.images.yoga,
-              ),
-            ),
-            Gap.customGapHeight(15),
-            SizedBox(
-              width: SizeApp.customWidth(295),
-              child: TextFieldWidget(
-                textEditingController: TextEditingController(),
-                hintText: 'Password', icon: Assets.images.medicine,
-              ),
-            ),
-          ],
+        body: Column(
+      children: [
+        Text(controller.getCurentUser?.displayName ?? ""),
+        Center(
+          child: ElevatedButton(
+            onPressed: controller.signOut,
+            child: Text("d"),
+          ),
         ),
-      ),
-    );
+      ],
+    ));
   }
 }

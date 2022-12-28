@@ -11,6 +11,31 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/Icon_Apple.svg
+  SvgGenImage get iconApple => const SvgGenImage('assets/icons/Icon_Apple.svg');
+
+  /// File path: assets/icons/Icon_Google.svg
+  SvgGenImage get iconGoogle =>
+      const SvgGenImage('assets/icons/Icon_Google.svg');
+
+  /// File path: assets/icons/Icon_facebook.svg
+  SvgGenImage get iconFacebook =>
+      const SvgGenImage('assets/icons/Icon_facebook.svg');
+
+  /// File path: assets/icons/Icon_lock.svg
+  SvgGenImage get iconLock => const SvgGenImage('assets/icons/Icon_lock.svg');
+
+  /// File path: assets/icons/icon_email.svg
+  SvgGenImage get iconEmail => const SvgGenImage('assets/icons/icon_email.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values =>
+      [iconApple, iconGoogle, iconFacebook, iconLock, iconEmail];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -34,6 +59,7 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

@@ -1,0 +1,32 @@
+import 'package:flutter/widgets.dart';
+
+import '../../../../../../gen/assets.gen.dart';
+import '../../../../../common_widgets/common_widgets.dart';
+import '../../../../../constants/constants.dart';
+
+class SignInFormWidget extends StatelessWidget {
+  const SignInFormWidget({super.key, required this.emailC, required this.passwordC});
+
+
+  final TextEditingController emailC, passwordC;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TextFieldWidget.withIcon(
+          textEditingController: emailC,
+          hintText: 'Email',
+          icon: Assets.icons.iconEmail,
+        ),
+        Gap.customGapHeight(15),
+        TextFieldWidget.withIcon(
+          textEditingController: passwordC,
+          hintText: 'Password',
+          icon: Assets.icons.iconLock,
+        ),
+      ],
+    );
+  }
+}

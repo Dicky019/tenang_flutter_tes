@@ -10,15 +10,23 @@ class TextFieldWidget extends StatelessWidget {
     required this.textEditingController,
     required this.hintText,
     this.validator,
-    this.isPassword = false, required this.icon,
-  });
+    this.isPassword = false,
+  }) : icon = null;
 
+  const TextFieldWidget.withIcon({
+    super.key,
+    required this.textEditingController,
+    required this.hintText,
+    this.validator,
+    this.isPassword = false,
+    required this.icon,
+  });
 
   final TextEditingController textEditingController;
   final String hintText;
   final String? Function(String?)? validator;
   final bool isPassword;
-  final SvgGenImage icon;
+  final SvgGenImage? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +35,8 @@ class TextFieldWidget extends StatelessWidget {
       child: TextFormField(
         controller: textEditingController,
         validator: validator,
+        obscureText: isPassword,
+        obscuringCharacter: "*",
         style: TypographyApp.body,
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -40,13 +50,22 @@ class TextFieldWidget extends StatelessWidget {
           counterStyle: TypographyApp.body,
           fillColor: ColorApp.primaryBackgroundColor,
           filled: true,
-          prefixIcon: icon.svg(
-            height: SizeApp.h24,
-            width: SizeApp.w24
+          prefixIcon: icon != null
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeApp.w20,
+                    vertical: SizeApp.h16,
+                  ),
+                  child: icon!.svg(),
+                )
+              : null,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: SizeApp.w20,
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           hintText: hintText,
-          hintStyle: TypographyApp.body.copyWith(color: ColorApp.secondaryTextColor),
+          hintStyle: TypographyApp.body.copyWith(
+            color: ColorApp.secondaryTextColor,
+          ),
         ),
       ),
     );

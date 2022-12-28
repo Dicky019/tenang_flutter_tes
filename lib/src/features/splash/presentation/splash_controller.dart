@@ -3,8 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../routing/app_route.dart';
-
-
+import '../../../services/local/hive_service.dart';
 
 class SplashControllerNotifier {
   SplashControllerNotifier({required this.isOnboardingDone});
@@ -29,6 +28,6 @@ class SplashControllerNotifier {
 final splashControllerProvider =
     Provider.autoDispose<SplashControllerNotifier>((ref) {
   return SplashControllerNotifier(
-    isOnboardingDone: false,
+    isOnboardingDone: ref.read(hiveServiceProvider).getIsOnboardingDone,
   );
 });

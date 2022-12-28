@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/constants.dart';
 
 class OnboardingHeaderWidget extends StatelessWidget {
@@ -9,7 +10,8 @@ class OnboardingHeaderWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subTitle,
-    this.isLast = false, required this.onTap,
+    this.isLast = false,
+    required this.onTap,
   }) : super(key: key);
 
   final String title, subTitle;
@@ -36,7 +38,7 @@ class OnboardingHeaderWidget extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TypographyApp.title1.copyWith(fontSize: 30.sp),
+                style: TypographyApp.title.copyWith(fontSize: 30.sp),
               ),
               Gap.customGapHeight(22),
               Text(
@@ -48,48 +50,16 @@ class OnboardingHeaderWidget extends StatelessWidget {
           ),
         ),
         if (isLast)
-           Positioned(
-            bottom: 35,
-            left: 30,
-            right: 30,
+          Positioned(
+            bottom: SizeApp.customHeight(35),
+            left: SizeApp.customWidth(30),
+            right: SizeApp.customWidth(30),
             child: ButtonWidget(
-             onTap: onTap
+              title: 'Continue',
+              onTap: onTap,
             ),
           )
       ],
-    );
-  }
-}
-
-class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({
-    Key? key, this.onTap,
-    // required this.padding,
-  }) : super(key: key);
-
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Material(
-        borderRadius: BorderRadius.circular(25.r),
-        color: ColorApp.primaryColor,
-        child: SizedBox(
-          width: SizeApp.fullWidth(context),
-          height: SizeApp.customWidth(50),
-          child: Center(
-            child: Text(
-              "Continue",
-              style: TypographyApp.body.copyWith(
-                fontWeight: FontWeight.bold,
-                color: ColorApp.primaryButtonColor,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

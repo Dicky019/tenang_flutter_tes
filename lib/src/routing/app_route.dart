@@ -1,18 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-// import 'package:shared_preferences/shared_preferences.dart';
+import '../features/auth/data/auth_repository.dart';
 
 // Screen
+import '../features/auth/presentation/sign_in/sign_in_screen.dart';
+import '../features/auth/presentation/sign_up/sign_up_screen.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/splash/presentation/splash_screen.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
 
 enum RouteApp {
   init(path: "/splash", name: "splash screen"),
-  // login(path: "login", name: "login"),
+  onboarding(path: "/onboarding", name: "login"),
   home(path: "/", name: "home"),
-  onboarding(path: "/onboarding", name: "login");
+  signIn(path: "/signin", name: "sign in"),
+  signUp(path: "/signup", name: "sign up");
 
   const RouteApp({required this.path, required this.name});
   final String path, name;
@@ -20,17 +23,11 @@ enum RouteApp {
 
 final goRouterProvider = Provider<GoRouter>(
   (ref) {
-    // final authRepository = ref.watch(authenticationRepositoryProvider);
+    final authRepository = ref.read(authRepositoryProvider);
 
     return GoRouter(
-      initialLocation: RouteApp.home.path,
+      initialLocation: RouteApp.init.path,
       debugLogDiagnostics: true,
-      redirect: (context, state) {
-        // final loggedIn = authRepository.currentUser == null ? false : true;
-        // final loggingIn = state.location == '/login';
-        // if (!loggedIn) return loggingIn ? null : '/login';
-        return null;
-      },
       routes: [
         GoRoute(
           path: RouteApp.init.path,
@@ -46,12 +43,24 @@ final goRouterProvider = Provider<GoRouter>(
           path: RouteApp.home.path,
           name: RouteApp.home.name,
           builder: (context, state) => const HomeScreen(),
-          redirect: (context, state) async {
-            // final prefs = await SharedPreferences.getInstance();
-            // prefs.get("key");
+          redirect: (context, state) {
+            final loggedIn =
+                authRepository.getCurentUser == null ? false : true;
+            final loggingIn = state.location == "/signin";
+            if (!loggedIn) return loggingIn ? null : "/signin";
             return null;
           },
-        )
+        ),
+        GoRoute(
+          path: RouteApp.signIn.path,
+          name: RouteApp.signIn.name,
+          builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: RouteApp.signUp.path,
+          name: RouteApp.signUp.name,
+          builder: (context, state) => const SignUpScreen(),
+        ),
       ],
     );
   },

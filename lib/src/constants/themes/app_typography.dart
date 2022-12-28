@@ -10,7 +10,7 @@ class TypographyApp {
   /// fontSize: 22.sp,
   /// color: ColorApp.primaryTextColor,
   /// fontWeight: FontWeight.bold,
-  static TextStyle title1 = TextStyle(
+  static TextStyle title = TextStyle(
     fontSize: 22.sp,
     color: ColorApp.primaryTextColor,
     fontWeight: FontWeight.bold,

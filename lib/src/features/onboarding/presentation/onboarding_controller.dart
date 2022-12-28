@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tenang_flutter_tes/gen/assets.gen.dart';
 import 'package:tenang_flutter_tes/src/routing/app_route.dart';
+import 'package:tenang_flutter_tes/src/services/local/hive_service.dart';
 import '../domain/onboarding.dart';
 import 'onboarding_state.dart';
 
 class OnboardingControllerNotifier extends StateNotifier<OnboardingState> {
-  OnboardingControllerNotifier() : super(const OnboardingState());
+  OnboardingControllerNotifier({required this.hiveService})
+      : super(const OnboardingState());
 
+  final HiveService hiveService;
   final pageController = PageController();
 
   final listOnboarding = [
@@ -40,6 +43,7 @@ class OnboardingControllerNotifier extends StateNotifier<OnboardingState> {
   }
 
   void toHome(BuildContext context) {
+    hiveService.saveOnboardingDone(true);
     context.pushReplacement(
       RouteApp.home.path,
     );
@@ -55,6 +59,8 @@ class OnboardingControllerNotifier extends StateNotifier<OnboardingState> {
 final onboardingControllerProvider =
     StateNotifierProvider<OnboardingControllerNotifier, OnboardingState>(
   (ref) {
-    return OnboardingControllerNotifier();
+    return OnboardingControllerNotifier(
+      hiveService: ref.read(hiveServiceProvider),
+    );
   },
 );
