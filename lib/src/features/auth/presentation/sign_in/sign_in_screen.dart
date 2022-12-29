@@ -22,7 +22,7 @@ class SignInScreen extends ConsumerWidget {
           onTapTextBottom: controller.toSignUp,
           onTapApple: (contex) {},
           onTapFacebook: (contex) {},
-          onTapGoogle: (contex) {},
+          onTapGoogle: controller.google,
           onTapSignIn: controller.signIn,
           emailC: controller.emailC,
           passwordC: controller.passwordC,

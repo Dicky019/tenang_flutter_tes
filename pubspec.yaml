@@ -23,7 +23,7 @@ dependencies:
   hive_flutter: ^1.1.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.7.0
-  google_sign_in: '^4.5.1'
+  google_sign_in: ^5.4.2
   # flutter_gen:
 
 dev_dependencies:

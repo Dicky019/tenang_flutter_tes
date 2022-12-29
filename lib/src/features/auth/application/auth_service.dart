@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../services/remote/firebase/config/firebase_config.dart';
@@ -58,7 +59,8 @@ class AuthService {
     return resultLogin;
   }
 
-  Future signOut() async => authRepository.signOut();
+  Future signOut() async => authRepository.signOut();  
+  User? get getCurentUser => authRepository.getCurentUser;
 }
 
 final authServiceProvider = Provider<AuthService>((ref) {
