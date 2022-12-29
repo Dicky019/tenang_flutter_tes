@@ -6,26 +6,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 const _defaultConnectTimeout = 15000;
 const _defaultReceiveTimeout = 15000;
 
 class DioClient {
-  // final String baseUrl = 'http://localhost:1337/';
+  final String baseUrl = 'https://jsonplaceholder.typicode.com/';
   late Dio _dio;
-
-
-  String setBaseUrl() {
-    String baseUrl;
-
-    if (Platform.isIOS) {
-      baseUrl = 'http://localhost:1337/';
-    } else {
-      baseUrl = 'http://10.0.2.2:1337/';
-    }
-
-    return baseUrl;
-  }
 
   final List<Interceptor>? interceptors;
   DioClient({
@@ -35,7 +21,7 @@ class DioClient {
   }) {
     _dio = dio;
     _dio
-      ..options.baseUrl = setBaseUrl()
+      ..options.baseUrl = baseUrl
       ..options.connectTimeout = _defaultConnectTimeout
       ..options.receiveTimeout = _defaultReceiveTimeout
       ..httpClientAdapter

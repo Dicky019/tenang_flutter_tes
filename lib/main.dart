@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/app.dart';
 import 'src/services/local/hive_helper.dart';
-import 'src/services/remote/config/firebase/firebase_options.dart';
+import 'src/services/remote/firebase/config/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

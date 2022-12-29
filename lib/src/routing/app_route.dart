@@ -1,19 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tenang_flutter_tes/src/features/dasboard/presentation/dasboard_screen.dart';
 
 import '../features/auth/data/auth_repository.dart';
 
 // Screen
 import '../features/auth/presentation/sign_in/sign_in_screen.dart';
 import '../features/auth/presentation/sign_up/sign_up_screen.dart';
-import '../features/home/presentation/home_screen.dart';
+import '../features/search/presentation/search_screen.dart';
 import '../features/splash/presentation/splash_screen.dart';
 import '../features/onboarding/presentation/onboarding_screen.dart';
 
 enum RouteApp {
   init(path: "/splash", name: "splash screen"),
   onboarding(path: "/onboarding", name: "login"),
-  home(path: "/", name: "home"),
+  dasboard(path: "/", name: "dasboard"),
+  search(path: "search", name: "search"),
   signIn(path: "/signin", name: "sign in"),
   signUp(path: "/signup", name: "sign up");
 
@@ -40,16 +42,23 @@ final goRouterProvider = Provider<GoRouter>(
           builder: (context, state) => const OnboardingScreen(),
         ),
         GoRoute(
-          path: RouteApp.home.path,
-          name: RouteApp.home.name,
-          builder: (context, state) => const HomeScreen(),
+          path: RouteApp.dasboard.path,
+          name: RouteApp.dasboard.name,
+          builder: (context, state) => const DasboardScreen(),
           redirect: (context, state) {
             final loggedIn =
                 authRepository.getCurentUser == null ? false : true;
-            final loggingIn = state.location == "/signin";
-            if (!loggedIn) return loggingIn ? null : "/signin";
+            final loggingIn = state.location == RouteApp.signIn.path;
+            if (!loggedIn) return loggingIn ? null : RouteApp.signIn.path;
             return null;
           },
+          routes: [
+            GoRoute(
+              path: RouteApp.search.path,
+              name: RouteApp.search.name,
+              builder: (context, state) => const SearchScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: RouteApp.signIn.path,

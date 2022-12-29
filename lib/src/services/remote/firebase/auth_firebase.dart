@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../features/auth/data/response/user_response.dart';
-import '../config/firebase/firebase_result.dart';
+import 'config/firebase_config.dart';
 
 class AuthFirebase {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -44,8 +45,33 @@ class AuthFirebase {
     }
   }
 
-  Future google() async {
-    try {} catch (e) {}
+  Future<FirebaseResult<User?>> google() async {
+    try {
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      final response =
+          (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+
+      return FirebaseResult.successFirebase(
+        response,
+      );
+    } on FirebaseAuthException catch (e, st) {
+      return FirebaseResult.failureFirebase(
+        e,
+        st,
+      );
+    }
   }
 
   Future signOut() async {
@@ -81,6 +107,5 @@ class AuthFirebase {
 }
 
 final auhtFirebaseProvider = Provider<AuthFirebase>((ref) {
-  return AuthFirebase(
-  );
+  return AuthFirebase();
 });

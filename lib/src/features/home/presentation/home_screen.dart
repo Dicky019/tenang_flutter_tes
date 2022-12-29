@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../auth/data/auth_repository.dart';
+import '../widgets/home_widgets.dart';
+import 'home_controller.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    final controller = ref.read(authRepositoryProvider);
+    final controller = ref.read(homeControllerProvider.notifier);
+    final state = ref.watch(homeControllerProvider);
     return Scaffold(
-        body: Column(
-      children: [
-        Text(controller.getCurentUser?.displayName ?? ""),
-        Center(
-          child: ElevatedButton(
-            onPressed: controller.signOut,
-            child: Text("d"),
-          ),
-        ),
-      ],
-    ));
+      body: HomeWidget(
+        listDoctor: state.listDoctor,
+        onTap: controller.gotoSearch,
+        onTapAppointment: () => controller.gotoAppontMent(ref),
+        onTapDoctor: controller.gotoSearch,
+      ),
+    );
   }
 }

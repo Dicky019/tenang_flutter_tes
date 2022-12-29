@@ -5,9 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:tenang_flutter_tes/src/features/auth/application/auth_service.dart';
 import '../../../../routing/app_route.dart';
 // import '../domain/onboarding.dart';
+import '../../../../utils/mixin/validation.dart';
 import 'sign_in_state.dart';
 
-class SignInControllerNotifier extends StateNotifier<SignInState> {
+class SignInControllerNotifier extends StateNotifier<SignInState>
+    with Validation {
   SignInControllerNotifier(this._authService) : super(const SignInState());
 
   final AuthService _authService;
@@ -29,7 +31,23 @@ class SignInControllerNotifier extends StateNotifier<SignInState> {
       successFirebase: (data) {
         state = state.copyWith(value: const AsyncData(true));
         context.pushReplacement(
-          RouteApp.home.path,
+          RouteApp.dasboard.path,
+        );
+      },
+      failureFirebase: (error, stackTrace) {
+        state = state.copyWith(value: AsyncError(error, stackTrace));
+      },
+    );
+  }
+
+  Future google(BuildContext context) async {
+    state = state.copyWith(value: const AsyncLoading());
+    final result = await _authService.google();
+    result.when(
+      successFirebase: (data) {
+        state = state.copyWith(value: const AsyncData(true));
+        context.pushReplacement(
+          RouteApp.dasboard.path,
         );
       },
       failureFirebase: (error, stackTrace) {

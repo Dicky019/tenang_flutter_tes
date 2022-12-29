@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tenang_flutter_tes/src/services/remote/config/firebase/firebase_result.dart';
 
+import '../../../services/remote/firebase/config/firebase_config.dart';
 import '../data/auth_repository.dart';
 
 class AuthService {
@@ -16,6 +16,18 @@ class AuthService {
       email: email,
       password: password,
     );
+
+    await resultLogin.whenOrNull(
+      successFirebase: (data) async {
+        await authRepository.reload;
+      },
+    );
+
+    return resultLogin;
+  }
+
+  Future<FirebaseResult<void>> google() async {
+    final resultLogin = await authRepository.google();
 
     await resultLogin.whenOrNull(
       successFirebase: (data) async {

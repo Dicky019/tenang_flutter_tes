@@ -5,10 +5,16 @@ import '../../../../../common_widgets/common_widgets.dart';
 import '../../../../../constants/constants.dart';
 
 class SignInFormWidget extends StatelessWidget {
-  const SignInFormWidget({super.key, required this.emailC, required this.passwordC});
-
+  const SignInFormWidget({
+    super.key,
+    required this.emailC,
+    required this.passwordC,
+    required this.validatorEmail,
+    required this.validatorPassword,
+  });
 
   final TextEditingController emailC, passwordC;
+  final String? Function(String?) validatorEmail, validatorPassword;
 
   @override
   Widget build(BuildContext context) {

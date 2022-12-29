@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../services/remote/firebase/config/firebase_config.dart';
 import '../../../services/remote/firebase/firebase.dart';
-import '../../../services/remote/config/config.dart';
 import 'response/user_response.dart';
 
 class AuthRepository {
@@ -36,23 +36,27 @@ class AuthRepository {
     return result;
   }
 
+  Future<FirebaseResult<User?>> google() async {
+    final result = await _authApi.google();
+
+    return result;
+  }
+
   Future<FirebaseResult<void>> signOut() async {
     final result = await _authApi.signOut();
     return result;
   }
 
-  FirebaseResult<UserResponse> loginResponse()  {
+  FirebaseResult<UserResponse> loginResponse() {
     return _authApi.loginResponse();
   }
 
   User? get getCurentUser => _authApi.getCurentUser;
 
   Future<void> get reload => _authApi.reload;
-
 }
 
-final authRepositoryProvider =
-    Provider<AuthRepository>((ref) {
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final auhtFirebase = ref.read(auhtFirebaseProvider);
   return AuthRepository(auhtFirebase);
 });

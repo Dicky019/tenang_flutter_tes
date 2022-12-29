@@ -2,12 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:tenang_flutter_tes/src/utils/mixin/validation.dart';
 import '../../../../routing/app_route.dart';
 // import '../domain/onboarding.dart';
 import '../../application/auth_service.dart';
 import 'sign_up_state.dart';
 
-class SignUpControllerNotifier extends StateNotifier<SignUpState> {
+class SignUpControllerNotifier extends StateNotifier<SignUpState> with Validation {
   SignUpControllerNotifier(this._authService) : super(const SignUpState());
 
   final AuthService _authService;
@@ -21,6 +22,8 @@ class SignUpControllerNotifier extends StateNotifier<SignUpState> {
       RouteApp.signIn.path,
     );
   }
+
+
 
   void onChanged(bool? value) {
     state = state.copyWith(checkboxValue: value);
@@ -37,7 +40,7 @@ class SignUpControllerNotifier extends StateNotifier<SignUpState> {
       successFirebase: (data) {
         state = state.copyWith(value: const AsyncData(true));
         context.pushReplacement(
-          RouteApp.home.path,
+          RouteApp.dasboard.path,
         );
       },
       failureFirebase: (error, stackTrace) {

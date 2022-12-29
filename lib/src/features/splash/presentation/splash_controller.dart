@@ -15,7 +15,7 @@ class SplashControllerNotifier {
       const Duration(seconds: 2),
       () {
         if (isOnboardingDone) {
-          context.pushReplacement(RouteApp.home.path);
+          context.pushReplacement(RouteApp.dasboard.path);
         } else {
           context.pushReplacement(RouteApp.onboarding.path);
         }

@@ -19,10 +19,15 @@ class SignInWidget extends StatelessWidget {
     required this.subTitleTextBottom,
     required this.emailC,
     required this.passwordC,
-    required this.isLoadingSignIn, required this.isLoadingGoogle, required this.isLoadingApple, required this.isLoadingFacebook,
+    required this.isLoadingSignIn,
+    required this.isLoadingGoogle,
+    required this.isLoadingApple,
+    required this.isLoadingFacebook,
+    required this.validatorEmail,
+    required this.validatorPassword,
   }) : super(key: key);
 
-  final void Function() onTapTextBottom,
+  final void Function(BuildContext context) onTapTextBottom,
       onTapSignIn,
       onTapGoogle,
       onTapApple,
@@ -35,52 +40,52 @@ class SignInWidget extends StatelessWidget {
       isLoadingApple,
       isLoadingFacebook;
 
+  final String? Function(String?) validatorEmail, validatorPassword;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: SizeApp.w40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gap.customGapHeight(53),
-            const Center(
-              child: IconAppWidget(
-                color: ColorApp.primaryColor,
-              ),
+    return PaddingWidget(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Gap.customGapHeight(53),
+          const Center(
+            child: IconAppWidget(
+              color: ColorApp.primaryColor,
             ),
-            Gap.h40,
-            const AuthTextWidget(
-              title: 'Welcome back!',
-              subTitle: 'sign in to continue.',
-            ),
-            Gap.h40,
-            // form
-            SignInFormWidget(
-              emailC: emailC,
-              passwordC: passwordC,
-
-            ),
-            Gap.customGapHeight(18),
-            SignInButtomWidget(
-              onTapSignIn: onTapSignIn,
-              onTapApple: onTapApple,
-              onTapFacebook: onTapFacebook,
-              onTapGoogle: onTapGoogle,
-              isLoadingSignIn: isLoadingSignIn,
-              isLoadingApple: isLoadingApple,
-              isLoadingFacebook: isLoadingFacebook,
-              isLoadingGoogle: isLoadingGoogle,
-            ),
-            const Spacer(),
-            AuthTextBottomWidget(
-              title: 'Do not have account? ',
-              subTitle: 'Sign up!',
-              onTap: onTapTextBottom,
-            ),
-            Gap.h28,
-          ],
-        ),
+          ),
+          Gap.h40,
+          const AuthTextWidget(
+            title: 'Welcome back!',
+            subTitle: 'sign in to continue.',
+          ),
+          Gap.h40,
+          // form
+          SignInFormWidget(
+            emailC: emailC,
+            passwordC: passwordC,
+            validatorEmail: validatorEmail,
+            validatorPassword: validatorPassword,
+          ),
+          Gap.customGapHeight(18),
+          SignInButtomWidget(
+            onTapSignIn: () => onTapSignIn(context),
+            onTapApple: () => onTapApple(context),
+            onTapFacebook: () => onTapFacebook(context),
+            onTapGoogle: () => onTapGoogle(context),
+            isLoadingSignIn: isLoadingSignIn,
+            isLoadingApple: isLoadingApple,
+            isLoadingFacebook: isLoadingFacebook,
+            isLoadingGoogle: isLoadingGoogle,
+          ),
+          const Spacer(),
+          AuthTextBottomWidget(
+            title: 'Do not have account? ',
+            subTitle: 'Sign up!',
+            onTap: () => onTapTextBottom(context),
+          ),
+          Gap.h28,
+        ],
       ),
     );
   }

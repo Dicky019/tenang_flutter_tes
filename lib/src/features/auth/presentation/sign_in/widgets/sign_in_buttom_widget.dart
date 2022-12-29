@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../gen/assets.gen.dart';
 import '../../../../../common_widgets/common_widgets.dart';
 import '../../../../../constants/constants.dart';
-import '../../widgets/auth_widgets.dart';
 import 'sign_in_widgets.dart';
 
 class SignInButtomWidget extends StatelessWidget {
@@ -33,7 +32,7 @@ class SignInButtomWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            AuthTextButtonWidget(
+            ButtonTextWidget(
               onTap: () {},
               textStyle: TypographyApp.body.copyWith(
                 color: ColorApp.primaryColor,

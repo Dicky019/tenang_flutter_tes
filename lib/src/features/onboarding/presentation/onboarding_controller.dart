@@ -45,7 +45,7 @@ class OnboardingControllerNotifier extends StateNotifier<OnboardingState> {
   void toHome(BuildContext context) {
     hiveService.saveOnboardingDone(true);
     context.pushReplacement(
-      RouteApp.home.path,
+      RouteApp.dasboard.path,
     );
   }
 

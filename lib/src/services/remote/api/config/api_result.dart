@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../config.dart';
+import 'api_config.dart';
 
 part 'api_result.freezed.dart';
 

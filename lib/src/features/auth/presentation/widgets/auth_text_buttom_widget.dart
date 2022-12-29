@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants/constants.dart';
-import 'auth_text_button_widget.dart';
+import '../../../../common_widgets/button/button_text_widget.dart';
 
 class AuthTextBottomWidget extends StatelessWidget {
   const AuthTextBottomWidget({
@@ -21,7 +21,7 @@ class AuthTextBottomWidget extends StatelessWidget {
           title,
           style: TypographyApp.body,
         ),
-        AuthTextButtonWidget(
+        ButtonTextWidget(
           onTap: onTap,
           title: subTitle,
           textStyle: TypographyApp.body.copyWith(
